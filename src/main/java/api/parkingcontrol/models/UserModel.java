@@ -1,7 +1,7 @@
 package api.parkingcontrol.models;
 
 import java.util.Collection;
-import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -33,7 +33,7 @@ public class UserModel implements UserDetails {
     //Cria uma tabela de relacionamento muitos para muitos, relacionando o usuário com suas roles.
     @ManyToMany
     @JoinTable(name = "TB_USERS_ROLES", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private List<RoleModel> roles;
+    private Set<RoleModel> roles;
 
     //retorna as funções do usuário.
     @Override
@@ -85,5 +85,8 @@ public class UserModel implements UserDetails {
     public void setPassword(String password) {
         this.password = password;
     }
-    
+
+    public void addRole(RoleModel role) {
+        this.roles.add(role);
+    }
 }
