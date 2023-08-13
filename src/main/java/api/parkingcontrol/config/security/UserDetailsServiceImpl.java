@@ -11,15 +11,13 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-
-    //injeção de depedência
     private final UserService userService;
 
     public UserDetailsServiceImpl(UserService userService){
         this.userService = userService;
     }
     
-    //autenticação do usuário
+    //Realiza a autenticação do usuário
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userService.findByUsername(username)

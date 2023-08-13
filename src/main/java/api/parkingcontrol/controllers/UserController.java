@@ -25,13 +25,13 @@ import api.parkingcontrol.services.UserService;
 import jakarta.validation.Valid;
 
 @Controller
-public class AuthenticationController {
+public class UserController {
 
     private final AuthenticationManager authenticationManager;
     private final UserService userServices;
     private final TokenService tokenService;
 
-    public AuthenticationController(AuthenticationManager authenticationManager, UserService userServices, RoleRepository roleRepository, TokenService tokenService){
+    public UserController(AuthenticationManager authenticationManager, UserService userServices, RoleRepository roleRepository, TokenService tokenService){
         this.authenticationManager = authenticationManager;
         this.userServices = userServices;
         this.tokenService = tokenService;

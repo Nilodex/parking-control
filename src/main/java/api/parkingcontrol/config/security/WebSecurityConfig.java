@@ -32,9 +32,8 @@ public class WebSecurityConfig {
             .authorizeHttpRequests((authz) -> authz
                 .requestMatchers(HttpMethod.POST, "/login").permitAll()
                 .requestMatchers(HttpMethod.POST, "/register").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.GET, "/users").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.GET, "/users").hasRole("USER")
                 .anyRequest().authenticated()
-            
             )
             .httpBasic(Customizer.withDefaults())
             .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
