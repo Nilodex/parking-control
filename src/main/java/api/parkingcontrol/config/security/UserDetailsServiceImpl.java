@@ -1,13 +1,10 @@
 package api.parkingcontrol.config.security;
 
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
-import api.parkingcontrol.models.UserModel;
-import api.parkingcontrol.repository.UserRepository;
+import api.parkingcontrol.services.UserService;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -16,18 +13,17 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 
     //injeção de depedência
-    final UserRepository userRepository;
+    private final UserService userService;
 
-    public UserDetailsServiceImpl(UserRepository userRepository){
-        this.userRepository = userRepository;
+    public UserDetailsServiceImpl(UserService userService){
+        this.userService = userService;
     }
     
     //autenticação do usuário
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserModel userModel = userRepository.findByUsername(username)
+        return userService.findByUsername(username)
             .orElseThrow(() -> new UsernameNotFoundException("User not found with username " + username));
-        return new User(userModel.getUsername(), userModel.getPassword(), true, true, true, true, userModel.getAuthorities());
     }
     
 }
